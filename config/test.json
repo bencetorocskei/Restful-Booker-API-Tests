@@ -2,33 +2,102 @@
   "scenarios": {
     "smoke": {
       "executor": "per-vu-iterations",
-      "exec": "smoke",
+      "exec": "smokeTest",
       "vus": 1,
       "iterations": 1
     },
     "loadForPost": {
       "executor": "ramping-vus",
-      "exec": "loadForPost",
+      "exec": "post",
       "startVUS": 0,
       "startTime": "10s",
       "stages": [
         {
-          "duration": "1m",
+          "duration": "10s",
           "target": 50
         },
         {
-          "duration": "2m",
+          "duration": "10s",
           "target": 100
         },
         {
-          "duration": "1m",
+          "duration": "10s",
+          "target": 50
+        }
+      ]
+    },
+    "stressForPost": {
+      "executor": "ramping-arrival-rate",
+      "exec": "post",
+      "preAllocatedVUs": 500,
+      "timeUnit": "1s",
+      "startTime": "2m",
+      "stages": [
+        {
+          "duration": "10s",
+          "target": 10
+        },
+        {
+          "duration": "10s",
+          "target": 50
+        },
+        {
+          "duration": "10s",
+          "target": 100
+        },
+        {
+          "duration": "10s",
+          "target": 150
+        },
+        {
+          "duration": "10s",
+          "target": 200
+        }
+      ]
+    },
+    "loadForGetById": {
+      "executor": "ramping-vus",
+      "exec": "getByID",
+      "startVUS": 0,
+      "startTime": "3m",
+      "stages": [
+        {
+          "duration": "10s",
+          "target": 50
+        },
+        {
+          "duration": "10s",
+          "target": 100
+        },
+        {
+          "duration": "10s",
+          "target": 50
+        }
+      ]
+    },
+    "loadForGetAll": {
+      "executor": "ramping-vus",
+      "exec": "getAll",
+      "startVUS": 0,
+      "startTime": "4m",
+      "stages": [
+        {
+          "duration": "10s",
+          "target": 50
+        },
+        {
+          "duration": "10s",
+          "target": 100
+        },
+        {
+          "duration": "10s",
           "target": 50
         }
       ]
     }
   },
   "thresholds": {
-    "http_req_duration{scenario:loadForPost}": [ "p(95)<175" ],
+    "http_req_duration": [ "p(95)<175" ],
     "http_req_failed": ["rate<0.01"]
   }
 }

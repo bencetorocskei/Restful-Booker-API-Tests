@@ -1,6 +1,7 @@
-export { smoke } from '/home/bence/codecool/Projects/Tester/Week7/DemoQATest/K6tutorial/scenarios/smoke.js';
-export { loadForPost } from '/home/bence/codecool/Projects/Tester/Week7/DemoQATest/K6tutorial/scenarios/loadForPost.js';
-export { stress } from '/home/bence/codecool/Projects/Tester/Week7/DemoQATest/K6tutorial/scenarios/stress.js';
+export { smokeTest } from '/home/bence/codecool/Projects/Tester/Week7/Restful Booker API Tests/scenarios/smoke.js';
+export { post } from '/home/bence/codecool/Projects/Tester/Week7/Restful Booker API Tests/scenarios/post.js';
+export { getByID } from '/home/bence/codecool/Projects/Tester/Week7/Restful Booker API Tests/scenarios/getById.js';
+export {getAll} from '/home/bence/codecool/Projects/Tester/Week7/Restful Booker API Tests/scenarios/getAll.js';
 import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
 
 const configFile =  './config/test.json';

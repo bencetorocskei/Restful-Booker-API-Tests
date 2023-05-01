@@ -29,6 +29,7 @@ export function setup() {
         },
     };
     const tokenRes = http.post(urlForAuth, payloadForAuth, params);
+    sleep(1);
     const authToken = JSON.parse(tokenRes.body).token;
     const headers = {
         headers: {
@@ -41,9 +42,9 @@ export function setup() {
     const jsonResponse = JSON.parse(res.body);
     sleep(1);
     check(res, {
-        'Response status is 200': (r) => r.status === 200,
+        'Booking created': (r) => r.status === 200,
     })
-    return {body: jsonResponse.booking, "id": jsonResponse.bookingid, "authToken": authToken}
+    return {body: jsonResponse.booking, id: jsonResponse.bookingid, "authToken": authToken}
 }
 
 export function getAllBookings() {
@@ -54,12 +55,18 @@ export function getAllBookings() {
     });
 }
 
-export function getById(data) {
+function getBy_Id(data) {
+    const id = data.id;
+    check(http.get(url + `/${id}`, headersGet), {
+        'Response satus is 200': (r) => r.status === 200,
+    })
+}
+
+export function getById() {
     group("Get by ID", function () {
-        let id = data.id;
-        check(http.get(url + `/${id}`, headersGet), {
-            'Response satus is 200': (r) => r.status === 200,
-        }) || errorRate.add(1);
+        const data = setup();
+        getBy_Id(data);
+        teardown(data);
     })
 }
 
@@ -127,3 +134,20 @@ export function deleteBooking(data) {
 export function teardown(data) {
     del(data);
 }
+
+export function smoke() {
+    group("Smoke test", function () {
+        const data = setup();
+        getAllBookings()
+        getById(data);
+        getByFirstName(data)
+        update(data)
+        deleteBooking(data)
+    });
+}
+
+export function booking() {
+    group("Post test", function () {
+    });
+}
+
