@@ -64,7 +64,7 @@ function getBy_Id(data) {
 
 export function getById() {
     group("Get by ID", function () {
-        const data = setup();
+       // const data = setup();
         getBy_Id(data);
         teardown(data);
     })
@@ -72,15 +72,15 @@ export function getById() {
 
 export function getByFirstName(data) {
     group("Get by firstname", function () {
-        let fn = data.body.firstname;
-        check(http.get(url + `?firstname=${fn}`, headersGet), {
+        let firstname = data.body.firstname;
+        check(http.get(url + `?firstname=${firstname}`, headersGet), {
             'Response status is 200': (r) => r.status === 200,
         }) || errorRate.add(1);
     });
 
 }
 
-export function update(data) {
+export default function update(data) {
     group("Update", function () {
         const authToken = data.authToken;
         const headers = {
@@ -137,7 +137,7 @@ export function teardown(data) {
 
 export function smoke() {
     group("Smoke test", function () {
-        const data = setup();
+        //const data = setup();
         getAllBookings()
         getById(data);
         getByFirstName(data)

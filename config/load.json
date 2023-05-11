@@ -1,0 +1,67 @@
+{
+  "scenarios": {
+    "loadForPost": {
+      "executor": "ramping-vus",
+      "exec": "post",
+      "startVUS": 0,
+      "stages": [
+        {
+          "duration": "10s",
+          "target": 50
+        },
+        {
+          "duration": "10s",
+          "target": 100
+        },
+        {
+          "duration": "10s",
+          "target": 50
+        }
+      ]
+    },
+    "loadForGetById": {
+      "executor": "ramping-vus",
+      "exec": "getById",
+      "startVUS": 0,
+      "startTime": "30s",
+      "stages": [
+        {
+          "duration": "10s",
+          "target": 50
+        },
+        {
+          "duration": "10s",
+          "target": 100
+        },
+        {
+          "duration": "10s",
+          "target": 50
+        }
+      ]
+    },
+    "loadForGetAll": {
+      "executor": "ramping-vus",
+      "exec": "getAll",
+      "startVUS": 0,
+      "startTime": "1m",
+      "stages": [
+        {
+          "duration": "10s",
+          "target": 50
+        },
+        {
+          "duration": "10s",
+          "target": 100
+        },
+        {
+          "duration": "10s",
+          "target": 50
+        }
+      ]
+    }
+  },
+  "thresholds": {
+    "http_req_duration": [ "p(95)<175" ],
+    "http_req_failed": ["rate<0.01"]
+  }
+}
